@@ -1114,18 +1114,16 @@ static int exception_count = 0;
     NSAssert([self isOnInternalLoggerQueue], @"logMessage should only be executed on internal queue.");
 
     NSString *message = logMessage->_message;
-    BOOL isFormatted = NO;
 
     if (_logFormatter != nil) {
         message = [_logFormatter formatLogMessage:logMessage];
-        isFormatted = message != logMessage->_message;
     }
 
     if (message.length == 0) {
         return;
     }
 
-    BOOL shouldFormat = !isFormatted || _automaticallyAppendNewlineForCustomFormatters;
+    BOOL shouldFormat = _automaticallyAppendNewlineForCustomFormatters;
     if (shouldFormat && ![message hasSuffix:@"\n"]) {
         message = [message stringByAppendingString:@"\n"];
     }
