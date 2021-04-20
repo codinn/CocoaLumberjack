@@ -1,6 +1,6 @@
 // Software License Agreement (BSD License)
 //
-// Copyright (c) 2010-2020, Deusty, LLC
+// Copyright (c) 2010-2021, Deusty, LLC
 // All rights reserved.
 //
 // Redistribution and use of this software in source and binary forms,
@@ -39,10 +39,13 @@
         XCTAssertEqualObjects(logger.loggerName, DDLoggerNameOS);
         XCTAssertEqualObjects(logger, DDLog.allLoggers.firstObject);
     } else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         __auto_type logger = [DDASLLogger new];
         [DDLog addLogger:logger];
         XCTAssertEqualObjects(logger.loggerName, DDLoggerNameASL);
         XCTAssertEqualObjects(logger, DDLog.allLoggers.firstObject);
+#pragma clang diagnostic pop
     }
 }
 
