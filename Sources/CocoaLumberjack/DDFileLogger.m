@@ -1443,18 +1443,16 @@ static int exception_count = 0;
     DDAbstractLoggerAssertOnInternalLoggerQueue();
 
     __auto_type messageString = logMessage->_message;
-    __auto_type isFormatted = NO;
 
     if (_logFormatter != nil) {
         messageString = [_logFormatter formatLogMessage:logMessage];
-        isFormatted = messageString != logMessage->_message;
     }
 
     if (messageString.length == 0) {
         return nil;
     }
 
-    __auto_type shouldFormat = !isFormatted || _automaticallyAppendNewlineForCustomFormatters;
+    __auto_type shouldFormat = _automaticallyAppendNewlineForCustomFormatters;
     if (shouldFormat && ![messageString hasSuffix:@"\n"]) {
         messageString = [messageString stringByAppendingString:@"\n"];
     }
